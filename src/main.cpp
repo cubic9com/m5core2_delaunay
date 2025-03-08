@@ -5,6 +5,11 @@
 // Canvas for off-screen rendering
 M5Canvas canvas(&M5.Lcd);
 
+// Tone settings for feedback sound
+const uint8_t TONE_VOLUME = 90U;//48U;
+const float TONE_FREQUENCY = 659.26F;
+const uint32_t TONE_DURATION = 50U;
+
 // Point structure
 struct Point {
     float x;
@@ -234,18 +239,13 @@ void updatePoints() {
 void setup() {
     M5.begin();
     
+    M5.Speaker.setVolume(TONE_VOLUME);
+
     // Initialize canvas (same size as screen)
     canvas.createSprite(M5.Lcd.width(), M5.Lcd.height());
     
     // Draw initial screen
     canvas.fillScreen(BLACK);
-    
-    canvas.setTextColor(WHITE);
-    canvas.setTextSize(2);
-    canvas.setCursor(10, 50);
-    canvas.println("Delaunay Diagram");
-    canvas.setCursor(10, 80);
-    canvas.println("Touch to add points");
     
     // Transfer canvas content to display
     canvas.pushSprite(0, 0);
@@ -265,6 +265,9 @@ void loop() {
         
         // Don't exceed maximum number of points
         if (points.size() < MAX_POINTS) {
+            // Play a tone as feedback
+            M5.Speaker.tone(TONE_FREQUENCY, TONE_DURATION);
+
             // Add new point
             points.emplace_back(x, y);
             
