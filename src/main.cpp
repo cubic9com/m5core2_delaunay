@@ -51,7 +51,7 @@ struct Triangle {
 std::vector<Point> points;
 
 // Maximum number of points
-const int MAX_POINTS = 50;
+const int MAX_POINTS = 30;
 
 // Previous touch state
 bool wasTouch = false;
@@ -263,20 +263,22 @@ void loop() {
         int x = touchPoint.x;
         int y = touchPoint.y;
         
-        // Don't exceed maximum number of points
-        if (points.size() < MAX_POINTS) {
-            // Play a tone as feedback
-            M5.Speaker.tone(TONE_FREQUENCY, TONE_DURATION);
+        // Play a tone as feedback
+        M5.Speaker.tone(TONE_FREQUENCY, TONE_DURATION);
 
-            // Add new point
-            points.emplace_back(x, y);
-            
-            // Apply repulsion to the new point
-            applyRepulsion(&points.back());
-            
-            // Recalculate and draw Delaunay diagram
-            drawDelaunayTriangulation();
+        // If maximum number of points is reached, remove the oldest point
+        if (points.size() >= MAX_POINTS) {
+            points.erase(points.begin());  // Remove the oldest point (first in vector)
         }
+        
+        // Add new point
+        points.emplace_back(x, y);
+        
+        // Apply repulsion to the new point
+        applyRepulsion(&points.back());
+        
+        // Recalculate and draw Delaunay diagram
+        drawDelaunayTriangulation();
     }
     
     wasTouch = isTouch;
