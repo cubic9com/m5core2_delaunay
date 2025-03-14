@@ -1,10 +1,10 @@
 #include <M5Unified.h>
 #include <M5GFX.h>
 #include <vector>
-#include "../include/Point.h"
-#include "../include/PointManager.h"
-#include "../include/DelaunayTriangulation.h"
-#include "../include/Config.h"
+#include "Point.h"
+#include "PointManager.h"
+#include "DelaunayTriangulation.h"
+#include "Config.h"
 
 // Canvas for off-screen rendering
 M5Canvas canvas(&M5.Lcd);

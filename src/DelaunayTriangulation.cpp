@@ -1,4 +1,4 @@
-#include "../include/DelaunayTriangulation.h"
+#include "DelaunayTriangulation.h"
 
 // Constructor
 DelaunayTriangulation::DelaunayTriangulation(std::vector<Point>& points, M5Canvas& canvas)

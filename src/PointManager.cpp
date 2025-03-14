@@ -1,4 +1,4 @@
-#include "../include/PointManager.h"
+#include "PointManager.h"
 
 // Constructor
 PointManager::PointManager(std::vector<Point>& points)
