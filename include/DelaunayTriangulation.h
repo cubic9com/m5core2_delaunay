@@ -6,7 +6,7 @@
 #include "Point.h"
 #include "Triangle.h"
 #include "ColorUtils.h"
-#include "Config.h"
+#include "Constants.h"
 
 // Class for managing Delaunay triangulation
 class DelaunayTriangulation {

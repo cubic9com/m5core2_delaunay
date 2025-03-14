@@ -8,7 +8,7 @@ PointManager::PointManager(std::vector<Point>& points)
 // Add a new point at the specified coordinates
 Point* PointManager::addPoint(float x, float y) {
     // If maximum number of points is reached, remove the oldest point
-    if (points.size() >= Config::MAX_POINTS) {
+    if (points.size() >= PointConstants::MAX_POINTS) {
         points.erase(points.begin());  // Remove the oldest point (first in vector)
     }
     
@@ -32,21 +32,21 @@ void PointManager::applyRepulsion(Point* newPoint) {
         if (&p == newPoint) continue;
         
         // Apply repulsion force
-        p.applyRepulsion(*newPoint, Config::REPULSION_STRENGTH, Config::REPULSION_RADIUS);
+        p.applyRepulsion(*newPoint, RepulsionConstants::STRENGTH, RepulsionConstants::RADIUS);
     }
 }
 
 // Apply Brownian motion to all points
 void PointManager::applyBrownianMotion() {
     for (auto& p : points) {
-        p.applyBrownianMotion(Config::BROWNIAN_STRENGTH);
+        p.applyBrownianMotion(BrownianConstants::STRENGTH);
     }
 }
 
 // Apply constraints to keep points near their original positions
 void PointManager::applyPositionConstraints() {
     for (auto& p : points) {
-        p.constrainToOriginalPosition(Config::MAX_DISTANCE, Config::RETURN_FORCE);
+        p.constrainToOriginalPosition(BrownianConstants::MAX_DISTANCE, BrownianConstants::RETURN_FORCE);
     }
 }
 
@@ -63,9 +63,9 @@ void PointManager::updatePoints(int screenWidth, int screenHeight) {
         p.update();
         
         // Constrain to screen boundaries
-        p.constrainToScreen(screenWidth, screenHeight, Config::BOUNCE_FACTOR);
+        p.constrainToScreen(screenWidth, screenHeight, PhysicsConstants::BOUNCE_FACTOR);
         
         // Apply friction
-        p.applyFriction(Config::FRICTION);
+        p.applyFriction(PhysicsConstants::FRICTION);
     }
 }

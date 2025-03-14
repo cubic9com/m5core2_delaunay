@@ -3,7 +3,7 @@
 #include <vector>
 #include <M5Unified.h>
 #include "Point.h"
-#include "Config.h"
+#include "Constants.h"
 
 // Class for managing points and their behavior
 class PointManager {

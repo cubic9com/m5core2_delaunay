@@ -68,7 +68,7 @@ void DelaunayTriangulation::calculateAndDraw() {
 // Draw a single triangle with the specified color
 void DelaunayTriangulation::drawTriangle(const Triangle& triangle, uint16_t color) {
     // Draw each line with the specified thickness
-    for (int i = 0; i < Config::LINE_THICKNESS; i++) {
+    for (int i = 0; i < DisplayConstants::LINE_THICKNESS; i++) {
         canvas.drawLine(triangle.p1->x + i, triangle.p1->y, 
                         triangle.p2->x + i, triangle.p2->y, color);
         
@@ -83,6 +83,6 @@ void DelaunayTriangulation::drawTriangle(const Triangle& triangle, uint16_t colo
 // Draw all points
 void DelaunayTriangulation::drawPoints() {
     for (const auto& point : points) {
-        canvas.fillCircle(point.x, point.y, Config::POINT_RADIUS, WHITE);
+        canvas.fillCircle(point.x, point.y, DisplayConstants::POINT_RADIUS, WHITE);
     }
 }

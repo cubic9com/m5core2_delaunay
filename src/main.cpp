@@ -1,10 +1,11 @@
 #include <M5Unified.h>
 #include <M5GFX.h>
 #include <vector>
+#include "Constants.h"
 #include "Point.h"
 #include "PointManager.h"
 #include "DelaunayTriangulation.h"
-#include "Config.h"
+#include "TouchHandler.h"
 
 // Canvas for off-screen rendering
 M5Canvas canvas(&M5.Lcd);
@@ -12,26 +13,24 @@ M5Canvas canvas(&M5.Lcd);
 // Points storage
 std::vector<Point> points;
 
-// Point manager and triangulation
+// Point manager, triangulation and touch handler
 PointManager pointManager(points);
 DelaunayTriangulation triangulation(points, canvas);
-
-// Touch state tracking
-bool wasTouch = false;
+TouchHandler touchHandler(pointManager);
 
 void setup() {
     // Initialize M5Stack
     M5.begin();
     
     // Set speaker volume
-    M5.Speaker.setVolume(Config::TONE_VOLUME);
+    M5.Speaker.setVolume(AudioConstants::TONE_VOLUME);
 
     // Play boot sound.
-    M5.Speaker.tone(Config::TONE_FREQUENCY, Config::TONE_DURATION);
+    M5.Speaker.tone(AudioConstants::TONE_FREQUENCY, AudioConstants::TONE_DURATION);
     delay(100);
-    M5.Speaker.tone(Config::TONE_FREQUENCY, Config::TONE_DURATION);
+    M5.Speaker.tone(AudioConstants::TONE_FREQUENCY, AudioConstants::TONE_DURATION);
     delay(100);
-    M5.Speaker.tone(Config::TONE_FREQUENCY, Config::TONE_DURATION);
+    M5.Speaker.tone(AudioConstants::TONE_FREQUENCY, AudioConstants::TONE_DURATION);
 
     // Initialize canvas (same size as screen)
     canvas.createSprite(M5.Lcd.width(), M5.Lcd.height());
@@ -48,28 +47,12 @@ void loop() {
     M5.update();
     
     // Handle touch input
-    bool isTouch = (M5.Touch.getCount() > 0);
+    bool touchProcessed = touchHandler.update();
     
-    // Process only at the moment touch begins
-    if (isTouch && !wasTouch) {
-        auto touchPoint = M5.Touch.getDetail(0);
-        int x = touchPoint.x;
-        int y = touchPoint.y;
-        
-        // Play a tone as feedback
-        M5.Speaker.tone(Config::TONE_FREQUENCY, Config::TONE_DURATION);
-
-        // Add new point
-        Point* newPoint = pointManager.addPoint(x, y);
-        
-        // Apply repulsion to the new point
-        pointManager.applyRepulsion(newPoint);
-        
-        // Recalculate and draw Delaunay diagram
+    // If touch was processed, redraw the triangulation
+    if (touchProcessed) {
         triangulation.calculateAndDraw();
     }
-    
-    wasTouch = isTouch;
     
     // Update point positions
     pointManager.updatePoints(M5.Lcd.width(), M5.Lcd.height());
