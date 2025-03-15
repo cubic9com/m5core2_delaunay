@@ -21,7 +21,11 @@ TouchHandler touchHandler(pointManager);
 void setup() {
     // Initialize M5Stack
     M5.begin();
-    
+
+    // Initialize display and optimize settings
+    M5.Display.init();
+    M5.Display.setColorDepth(8);  // Set to 8-bit color depth
+
     // Set speaker volume
     M5.Speaker.setVolume(AudioConstants::TONE_VOLUME);
 
@@ -33,9 +37,11 @@ void setup() {
     M5.Speaker.tone(AudioConstants::TONE_FREQUENCY, AudioConstants::TONE_DURATION);
 
     // Initialize canvas (same size as screen)
-    canvas.createSprite(M5.Lcd.width(), M5.Lcd.height());
+    canvas.setColorDepth(8);  // Set to 8-bit color depth
+    canvas.createSprite(M5.Display.width(), M5.Display.height());
     
-    // No need to initialize managers as they are created as global objects
+    // Start drawing (continuous drawing mode)
+    M5.Display.startWrite();
     
     // Draw initial screen
     canvas.fillScreen(BLACK);
@@ -55,7 +61,7 @@ void loop() {
     }
     
     // Update point positions
-    pointManager.updatePoints(M5.Lcd.width(), M5.Lcd.height());
+    pointManager.updatePoints(M5.Display.width(), M5.Display.height());
     
     // Recalculate and draw Delaunay triangulation
     triangulation.calculateAndDraw();
