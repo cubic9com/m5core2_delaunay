@@ -17,7 +17,7 @@ m5core2_delaunay プロジェクトは、インタラクティブにドロネー
 1. Clone the repository:
     ```sh
     git clone https://github.com/cubic9com/m5core2_delaunay.git
-    cd m5core2_voronoi
+    cd m5core2_delaunay
     ```
 
 2. Install [Visual Studio Code](https://code.visualstudio.com/) if you haven't already.
@@ -37,7 +37,7 @@ m5core2_delaunay プロジェクトは、インタラクティブにドロネー
 
 6. Open the project:
     - In the right Editor Groups, Click `Open Project` in the `PIO HOME` tab.
-    - Select the cloned `m5core2_voronoi` project folder.
+    - Select the cloned `m5core2_delaunay` project folder.
 
 7. Upload the project:
     - In the left Primary Sidebar, go to `PROJECT TASKS > m5stack-core2 > General > Upload`.
@@ -47,7 +47,7 @@ m5core2_delaunay プロジェクトは、インタラクティブにドロネー
 1. リポジトリをクローンします:
     ```sh
     git clone https://github.com/cubic9com/m5core2_delaunay.git
-    cd m5core2_voronoi
+    cd m5core2_delaunay
     ```
 
 2. まだインストールしていない場合は、[Visual Studio Code](https://code.visualstudio.com/) をインストールします。
@@ -67,7 +67,7 @@ m5core2_delaunay プロジェクトは、インタラクティブにドロネー
 
 6. プロジェクトを開きます:
     - 右のエディターグループ内の `PIO HOME` タブで `Open Project` をクリックします。
-    - クローンした `m5core2_voronoi` プロジェクトフォルダーを選択します。
+    - クローンした `m5core2_delaunay` プロジェクトフォルダーを選択します。
 
 7. プロジェクトをアップロードします:
     - 左のメインサイドバーから `PROJECT TASKS > m5stack-core2 > General > Upload` を選択します。
