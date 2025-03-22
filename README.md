@@ -11,8 +11,27 @@ m5core2_delaunay プロジェクトは、インタラクティブにドロネー
 
 ![video](video.gif)
 
-
 # Installation
+
+1. Register an [M5Stack Community](https://community.m5stack.com/) account if you haven't already.
+1. Launch the [M5Burner](https://docs.m5stack.com/en/download) .
+1. Click `USER CUSTOM` in the lower left corner.
+1. Log in to the M5Stack Community.
+1. Click the `Share Burn` button.
+1. Enter `kkwsCRKPV04NsUQW` in the `Share Code` field.
+1. Click the lightning icon :zap: .
+
+\[日本語\]
+
+1. [M5Stack Community](https://community.m5stack.com/) のアカウントをまだ登録していない場合は登録してください。
+1. [M5Burner](https://docs.m5stack.com/en/download) を起動します。
+1. 左下隅の `USER CUSTOM` をクリックします。
+1. M5Stack Communityにログインします。
+1. `Share Burn` ボタンをクリックします。
+1. `Share Code` フィールドに `kkwsCRKPV04NsUQW` と入力します。
+1. 稲妻アイコン :zap: をクリックします。
+
+# Installation for developers
 
 1. Clone the repository:
     ```sh
