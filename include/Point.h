@@ -50,12 +50,15 @@ public:
         float dy = y - other.y;
         float distSq = dx * dx + dy * dy;
         
-        if (distSq < radius * radius && distSq > 0) {
+        float radiusSq = radius * radius;
+        if (distSq < radiusSq && distSq > 0.01f) {  // Avoid division by very small numbers
+            // Use inverse sqrt approximation for better performance
             float dist = sqrt(distSq);
-            float force = strength * (1.0 - dist / radius);
+            float force = strength * (1.0f - dist / radius);
+            float invDist = 1.0f / dist;
             
-            vx += dx / dist * force;
-            vy += dy / dist * force;
+            vx += dx * invDist * force;
+            vy += dy * invDist * force;
         }
     }
 

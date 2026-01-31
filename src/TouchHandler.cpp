@@ -6,7 +6,7 @@ TouchHandler::TouchHandler(PointManager& pointManager)
 }
 
 // Update touch state and handle touch events
-bool TouchHandler::update() {
+void TouchHandler::update() {
     // Get current touch state
     bool isTouch = (M5.Touch.getCount() > 0);
     
@@ -25,19 +25,10 @@ bool TouchHandler::update() {
         
         // Apply repulsion to other points
         pointManager.applyRepulsion(newPoint);
-        
-        // Update touch state
-        wasTouch = isTouch;
-        
-        // Return true to indicate a touch event was processed
-        return true;
     }
     
     // Update touch state
     wasTouch = isTouch;
-    
-    // Return false to indicate no touch event was processed
-    return false;
 }
 
 // Play feedback sound for touch

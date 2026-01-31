@@ -19,8 +19,7 @@ public:
     TouchHandler(PointManager& pointManager);
     
     // Update touch state and handle touch events
-    // Returns true if a touch event was processed
-    bool update();
+    void update();
     
     // Get the current touch state
     bool isTouching() const { return wasTouch; }

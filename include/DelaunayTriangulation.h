@@ -13,9 +13,12 @@ class DelaunayTriangulation {
 private:
     std::vector<Point>& points;
     M5Canvas& canvas;
+    
+    // Reusable buffer for triangles to avoid reallocations
+    std::vector<Triangle> triangleCache;
 
     // Find all Delaunay triangles from the current set of points
-    std::vector<Triangle> findDelaunayTriangles();
+    void findDelaunayTriangles();
 
 public:
     // Constructor

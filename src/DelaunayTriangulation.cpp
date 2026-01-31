@@ -3,26 +3,31 @@
 // Constructor
 DelaunayTriangulation::DelaunayTriangulation(std::vector<Point>& points, M5Canvas& canvas)
     : points(points), canvas(canvas) {
+    // Pre-allocate triangle cache to avoid frequent reallocations
+    triangleCache.reserve(60);  // Estimate: ~2x MAX_POINTS
 }
 
 // Find all Delaunay triangles from the current set of points
-std::vector<Triangle> DelaunayTriangulation::findDelaunayTriangles() {
-    std::vector<Triangle> delaunayTriangles;
+void DelaunayTriangulation::findDelaunayTriangles() {
+    // Clear previous triangles but keep capacity
+    triangleCache.clear();
     
     // Need at least 3 points to form a triangle
     if (points.size() < 3) {
-        return delaunayTriangles;
+        return;
     }
     
+    size_t n = points.size();
+    
     // Check all possible triangles
-    for (size_t i = 0; i < points.size() - 2; i++) {
-        for (size_t j = i + 1; j < points.size() - 1; j++) {
-            for (size_t k = j + 1; k < points.size(); k++) {
+    for (size_t i = 0; i < n - 2; i++) {
+        for (size_t j = i + 1; j < n - 1; j++) {
+            for (size_t k = j + 1; k < n; k++) {
                 Triangle tri(&points[i], &points[j], &points[k]);
                 
                 // Check if no other points are inside this triangle's circumcircle
                 bool isDelaunay = true;
-                for (size_t l = 0; l < points.size(); l++) {
+                for (size_t l = 0; l < n; l++) {
                     if (l != i && l != j && l != k) {
                         if (tri.isPointInCircumcircle(points[l])) {
                             isDelaunay = false;
@@ -31,15 +36,13 @@ std::vector<Triangle> DelaunayTriangulation::findDelaunayTriangles() {
                     }
                 }
                 
-                // Add to list if it satisfies Delaunay condition
+                // Add to cache if it satisfies Delaunay condition
                 if (isDelaunay) {
-                    delaunayTriangles.push_back(tri);
+                    triangleCache.push_back(tri);
                 }
             }
         }
     }
-    
-    return delaunayTriangles;
 }
 
 // Calculate and draw the Delaunay triangulation
@@ -49,10 +52,11 @@ void DelaunayTriangulation::calculateAndDraw() {
     
     // If we have enough points, find and draw triangles
     if (points.size() >= 3) {
-        std::vector<Triangle> triangles = findDelaunayTriangles();
+        // Find triangles (fills triangleCache)
+        findDelaunayTriangles();
         
-        // Draw each triangle
-        for (const auto& triangle : triangles) {
+        // Draw each triangle from cache
+        for (const auto& triangle : triangleCache) {
             uint16_t color = ColorUtils::generatePastelColor(triangle.getColorSeed());
             drawTriangle(triangle, color);
         }
@@ -68,15 +72,19 @@ void DelaunayTriangulation::calculateAndDraw() {
 // Draw a single triangle with the specified color
 void DelaunayTriangulation::drawTriangle(const Triangle& triangle, uint16_t color) {
     // Draw each line with the specified thickness
-    for (int i = 0; i < DisplayConstants::LINE_THICKNESS; i++) {
-        canvas.drawLine(triangle.p1->x + i, triangle.p1->y, 
-                        triangle.p2->x + i, triangle.p2->y, color);
-        
-        canvas.drawLine(triangle.p2->x + i, triangle.p2->y, 
-                        triangle.p3->x + i, triangle.p3->y, color);
-        
-        canvas.drawLine(triangle.p3->x + i, triangle.p3->y, 
-                        triangle.p1->x + i, triangle.p1->y, color);
+    // Draw offset in both x and y directions for more uniform thickness
+    int thickness = DisplayConstants::LINE_THICKNESS;
+    for (int dx = 0; dx < thickness; dx++) {
+        for (int dy = 0; dy < thickness; dy++) {
+            canvas.drawLine(triangle.p1->x + dx, triangle.p1->y + dy, 
+                            triangle.p2->x + dx, triangle.p2->y + dy, color);
+            
+            canvas.drawLine(triangle.p2->x + dx, triangle.p2->y + dy, 
+                            triangle.p3->x + dx, triangle.p3->y + dy, color);
+            
+            canvas.drawLine(triangle.p3->x + dx, triangle.p3->y + dy, 
+                            triangle.p1->x + dx, triangle.p1->y + dy, color);
+        }
     }
 }
 

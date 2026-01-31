@@ -53,19 +53,14 @@ void loop() {
     M5.update();
     
     // Handle touch input
-    bool touchProcessed = touchHandler.update();
-    
-    // If touch was processed, redraw the triangulation
-    if (touchProcessed) {
-        triangulation.calculateAndDraw();
-    }
+    touchHandler.update();
     
     // Update point positions
     pointManager.updatePoints(M5.Display.width(), M5.Display.height());
     
-    // Recalculate and draw Delaunay triangulation
+    // Recalculate and draw Delaunay triangulation (only once per frame)
     triangulation.calculateAndDraw();
     
-    // Small delay to control frame rate
-    delay(10);
+    // Small delay to control frame rate (16ms ≈ 60fps)
+    delay(16);
 }
