@@ -15,7 +15,7 @@ m5core2_delaunay プロジェクトは、インタラクティブにドロネー
 
 1. Register an [M5Stack Community](https://community.m5stack.com/) account if you haven't already.
 
-1. Launch the [M5Burner](https://docs.m5stack.com/en/download) .
+1. Launch [M5Burner](https://docs.m5stack.com/en/download) .
 
 1. Click `USER CUSTOM` in the lower left corner.
 
@@ -58,7 +58,7 @@ m5core2_delaunay プロジェクトは、インタラクティブにドロネー
     code .
     ```
 
-1. Install `PlatformIO IDE` extension:
+1. Install the `PlatformIO IDE` extension:
     - Go to the Extensions view (`Ctrl+Shift+X`).
     - Search for `PlatformIO IDE` and install it.
 
