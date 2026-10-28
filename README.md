@@ -1,11 +1,11 @@
 
 # Overview / 概要
 
-The m5core2_delaunay project is an interactive Delaunay diagram renderer for the [M5Stack Core 2](https://docs.m5stack.com/#/en/core/core2) .
+A Delaunay diagram that dances. The m5core2_delaunay project is an interactive Delaunay diagram renderer for the [M5Stack Core 2](https://docs.m5stack.com/en/core/core2): touch the screen and watch the triangles ripple and re-form in real time.
 
 \[日本語\]
 
-m5core2_delaunay プロジェクトは、インタラクティブにドロネー図を描画する [M5Stack Core 2](https://docs.m5stack.com/#/en/core/core2) 用のソフトウェアです。
+躍動するドロネー図。m5core2_delaunayプロジェクトは、[M5Stack Core 2](https://docs.m5stack.com/en/core/core2)向けのインタラクティブなドロネー図描画プログラムです。画面に触れると、三角形が波紋のように広がり、リアルタイムで形を変えていく様子を楽しめます。
 
 # Video / 動画
 
