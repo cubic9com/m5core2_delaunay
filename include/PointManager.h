@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <vector>
 #include <M5Unified.h>
 #include "Point.h"
@@ -10,6 +11,7 @@ class PointManager {
 private:
     std::vector<Point>& points;
     Point* lastAddedPoint;
+    uint32_t pointsVersion;  // Incremented whenever the point set changes
     
     // Apply Brownian motion to all points
     void applyBrownianMotion();
@@ -35,4 +37,7 @@ public:
     
     // Get the last added point
     Point* getLastAddedPoint() { return lastAddedPoint; }
+    
+    // Get the point set version (changes when points are added or removed)
+    const uint32_t& getPointsVersion() const { return pointsVersion; }
 };

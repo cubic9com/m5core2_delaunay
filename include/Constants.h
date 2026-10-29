@@ -20,6 +20,14 @@ namespace PointConstants {
     constexpr int MAX_POINTS = 30;
 }
 
+// Delaunay triangulation related constants
+namespace TriangulationConstants {
+    // Recompute the triangulation topology only once every this many frames
+    // (the points move only slightly between frames, and the drawing uses
+    // the live point positions, so only the topology lags behind)
+    constexpr int RECOMPUTE_INTERVAL_FRAMES = 3;
+}
+
 // Physics simulation related constants
 namespace PhysicsConstants {
     constexpr float FRICTION = 0.9F;

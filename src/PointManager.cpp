@@ -2,7 +2,7 @@
 
 // Constructor
 PointManager::PointManager(std::vector<Point>& points)
-    : points(points), lastAddedPoint(nullptr) {
+    : points(points), lastAddedPoint(nullptr), pointsVersion(0) {
 }
 
 // Add a new point at the specified coordinates
@@ -14,6 +14,9 @@ Point* PointManager::addPoint(float x, float y) {
     
     // Add new point
     points.emplace_back(x, y);
+
+    // The point set has changed
+    pointsVersion++;
     
     // Store reference to the newly added point
     lastAddedPoint = &points.back();

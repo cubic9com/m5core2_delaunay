@@ -15,7 +15,7 @@ std::vector<Point> points;
 
 // Point manager, triangulation and touch handler
 PointManager pointManager(points);
-DelaunayTriangulation triangulation(points, canvas);
+DelaunayTriangulation triangulation(points, canvas, pointManager.getPointsVersion());
 TouchHandler touchHandler(pointManager);
 
 void setup() {
